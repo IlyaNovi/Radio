@@ -1,11 +1,29 @@
 package ru.netology.radio;
 
 public class Radio {
-    private int numberStation;
+    private int maxNumberStation = 9;
+    private int minNumberStation = 0;
+    private int currentNumberStation = minNumberStation;
     private int currentVolume;
 
-    public int getNumberStation() {
-        return numberStation;
+    public Radio() {
+        currentNumberStation = maxNumberStation;
+    }
+
+    public Radio(int size) {
+        maxNumberStation = minNumberStation + size;
+    }
+
+    public int getMaxNumberStation() {
+        return maxNumberStation;
+    }
+
+    public int getCurrentNumberStation() {
+        return currentNumberStation;
+    }
+
+    public int getMinNumberStation() {
+        return minNumberStation;
     }
 
     public int getCurrentVolume() {
@@ -13,13 +31,30 @@ public class Radio {
     }
 
     public void setNumberStation(int newNumberStation) {
-        if (newNumberStation < 0) {
+        if (newNumberStation < minNumberStation) {
             return;
         }
-        if (newNumberStation > 9) {
+        if (newNumberStation > maxNumberStation) {
             return;
         }
-        numberStation = newNumberStation;
+        currentNumberStation = newNumberStation;
+    }
+
+    public void increaseNumberStation() {
+        if (currentNumberStation == maxNumberStation) {
+            currentNumberStation = minNumberStation;
+        } else {
+            currentNumberStation++;
+        }
+    }
+
+    public void decreaseNumberStation() {
+        if (currentNumberStation == minNumberStation) {
+            currentNumberStation = maxNumberStation;
+        } else {
+            currentNumberStation = currentNumberStation - 1;
+        }
+
     }
 
     public void setCurrentVolume(int newCurrentVolume) {
@@ -33,23 +68,6 @@ public class Radio {
         currentVolume = newCurrentVolume;
     }
 
-
-    public void increaseNumberStation() {
-        if (numberStation == 9) {
-            numberStation = 0;
-        } else {
-            numberStation++;
-        }
-    }
-
-    public void decreaseNumberStation() {
-        if (numberStation == 0) {
-            numberStation = 9;
-        } else {
-            numberStation = numberStation - 1;
-        }
-
-    }
 
     public void increaseVolume() {
         if (currentVolume < 100) {
